@@ -8,24 +8,24 @@ sudo update-alternatives --remove-all g++
 ```
 #### Install Packages
 
-It seems that both gcc-4.3 and gcc-4.4 are installed after install build-essential. However, we can explicitly install the following packages:
+Say you already have gcc-7 installed but you want to install gcc-6 as well. install the package as follows:
 ```
-sudo apt-get install gcc-4.3 gcc-4.4 g++-4.3 g++-4.4
+sudo apt-get install gcc-6 gcc-ar-6 gcc-nm-6 gcc-ranlib-6 g++-6
 ```
 #### Install Alternatives
 
-Symbolic links cc and c++ are installed by default. We will install symbol links for gcc and g++, then link cc and c++ to gcc and g++ respectively.
+Symbolic links cc and c++ are installed by default. We will install symbol links for gcc and g++, then link cc and c++ to gcc and g++ respectively if needed.
 ```
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 20 \
-    --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-7 \
-    --slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-7 \
-    --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-7
-    
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 10 \
     --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-6 \
     --slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-6 \
     --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-6
 
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 20 \
+    --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-7 \
+    --slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-7 \
+    --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-7
+    
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 10
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 20
 
@@ -40,7 +40,7 @@ sudo update-alternatives --set c++ /usr/bin/g++
 ```
 #### Configure Alternatives
 
-The last step is configuring the default commands for gcc, g++. It's easy to switch between 4.3 and 4.4 interactively:
+The last step is configuring the default commands for gcc, g++. It's easy to switch between 6 and 7 interactively:
 ```
 sudo update-alternatives --config gcc
 sudo update-alternatives --config g++
