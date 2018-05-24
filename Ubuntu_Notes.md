@@ -16,17 +16,27 @@ sudo apt-get install gcc-4.3 gcc-4.4 g++-4.3 g++-4.4
 
 Symbolic links cc and c++ are installed by default. We will install symbol links for gcc and g++, then link cc and c++ to gcc and g++ respectively.
 ```
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.3 10
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.4 20
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 20 \
+    --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-7 \
+    --slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-7 \
+    --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-7
+    
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 10 \
+    --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-6 \
+    --slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-6 \
+    --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-6
 
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.3 10
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.4 20
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 10
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 20
+
+#These two below may be already setup. You can check first with sudo update-alternatives --display cc
 
 sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
 sudo update-alternatives --set cc /usr/bin/gcc
 
 sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
 sudo update-alternatives --set c++ /usr/bin/g++
+
 ```
 #### Configure Alternatives
 
