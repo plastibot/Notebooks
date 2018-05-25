@@ -32,6 +32,17 @@ def cross_entropy(y, a)
 
 
 ## Gradient Descent
+Things to take into consideration
+
+1. Learning rate is important. Too big and you will over shoot.
+2. Batch Size: Using mini batches know as Stochastic Gradient Descent.
+3. Second order calculations. Takes a look at the acceleration (momentum) of the learning to automatically adjust the learning rate.
+    - AdaGrad
+    - RMProp
+    - Adam
+
+### unstable Gradients
+Unstable gradients is a prblemw with grsdient descent.
 
 ### Back Propagation
 
@@ -41,3 +52,25 @@ def cross_entropy(y, a)
 ### Dense
 
 ### Softmax
+
+## Initialization
+
+1. Glorot Uniform
+2. Glorot Normal
+
+
+## Overfitting
+To minimize overfitting, you can do the following:
+ 1. You can add L1/L2 regularizations to 
+ 2. Dropout
+ 3. Artificially expand our data
+ 
+ ## Types of Layers
+ 1. Dense
+ 2. Max Pooling - used to reduce the size of your image by oicking the highest value of a 2 x 2 array
+ 3. Flatten - Used to convert from cnvolutional to dense layers.
+ 4. Convolutional Layers
+ 
+ ## Bath Normalization
+ 
+ 
