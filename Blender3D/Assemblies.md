@@ -2,12 +2,13 @@
 
 ### Align pivot on plastic part with joint cylinder
 
-1) Make the center of the top surface of the joint cylinder the origin for that geometry then hide geometry
+1) Select the joint cylinder with (RMB), go into edit mode (Tab) and select the mesh mode (Ctrl-Tab) to be "Faces". Select the top surface using RMB.
 
+2) Press (Shift-S) to open the snap window and select "Cursor to Selected", then press "A" to deselect face and Tab to exit edit mode.
 
+3)Make the center of the top surface of the joint cylinder the origin for that geometry by pressing (Shift-Ctrl-Alt-C) and selecting "Origin to 3D Cursor". Then press A to de-select all object.
 
-
-2) Select the top surface of the pivot
+4) Select the top surface of the plastic part pivot by clicking (RMB), going into edit mode (Tab) and Selecting the MEsh mode to be "Face" (Ctrl-Tab) then select "Faces" from Window. Then select the top surface (RMB) and press Shift-S to open the snap window menu and select "Origin to selected". Press A to de-select
 
 ````python3
 bpy.ops.view3d.snap_cursor_to_selected()
