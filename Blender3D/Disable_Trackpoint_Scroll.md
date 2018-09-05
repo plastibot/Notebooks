@@ -23,3 +23,11 @@ $ xinput set-prop "TPPS/2 IBM TrackPoint" "libinput Button Scrolling Button" 0
 ````bash
 $ xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 0
 ````
+
+#### To make it persistent after reboot:
+
+Open 'Startup Applications'.
+
+Click 'Add' and in the command field paste the desired command. Click 'Add'. You have added the first command.
+
+Add the other commands too in similar fashion (if you have more than one command). You are done. Next time you restart your computer, Ubuntu will automatically run these commands which will fix your mouse issues.
