@@ -158,5 +158,135 @@ def between_markers(text: str, begin: str, end: str) -> str:
 ````
 
 
+## Best Stock
+You are given the current stock prices. You have to find out which stocks cost more.
+
+**Input:** The dictionary where the market identifier code is a key and the value is a stock price.
+
+**Output:** A string and the market identifier code.
+{
+        'CAC': 10.0,
+        'ATX': 390.2,
+        'WIG': 1.2
+    }
+    
+**Preconditions:** All the prices are unique.
+
+### Best Solutiom
+```` python
+def best_stock(data):
+    return max(data, key = data.__getitem__)
+
+# Or with max
+def best_stock(data):
+    return max(data, key = data.get)
+    
+# OR with Lambda functions
+def best_stock(data):
+    return max(data, key=lambda stock: data[stock])
+
+````
+
+### My Solution
+```` python
+def best_stock(data):
+    # your code here
+    best_stock_name = None
+    best_stock_price = 0
+    for stock, price in data.items():
+        if price > best_stock_price:
+            best_stock_name = stock
+            best_stock_price = price
+    return best_stock_name
+````
 
 
+## Popular Words
+In this mission your task is to determine the popularity of certain words in the text.
+
+At the input of your function are given 2 arguments: the text and the array of words the popularity of which you need to determine.
+
+When solving this task pay attention to the following points:
+
+- The words should be sought in all registers. This means that if you need to find a word "one" then words like "one", "One", "oNe", "ONE" etc. will do.
+- The search words are always indicated in the lowercase.
+- If the word wasn’t found even once, it has to be returned in the dictionary with 0 (zero) value.
+
+**Input:** The text and the search words array.
+
+**Output:** The dictionary where the search words are the keys and values are the number of times when those words are occurring in a given text.
+
+**Precondition:** The input text will consists of English letters in uppercase and lowercase and whitespaces.
+
+### Best Solutioms
+```` python
+#Creating a buitin method to be used in dictionary comprehension.
+def popular_words(text, words):
+    lower_count = text.lower().split().count
+    return {word: lower_count(word) for word in words}
+
+# Shortest solution using map
+def popular_words(text, words):
+    return dict(zip(words, map(text.lower().split().count, words)))
+    
+def popular_words(text: str, words: list) -> dict:
+    return dict([(i, text.lower().split().count(i)) for i in words])
+
+#or
+
+def popular_words(text: str, words: list) -> dict:
+    return {w: text.replace('\n', ' ').lower().split(' ').count(w) for w in words}
+````
+
+### My Solution
+```` python
+def popular_words(text: str, words: list) -> dict:
+    pop_words = {}
+    text = " " + text.lower() + " "
+    text = text.replace("\n", " ")
+    
+    for word in words:
+        pop_words[word] = text.count(" " + word + " ")
+    return pop_words
+````
+
+
+## Bigger Price
+You have a table with all available goods in the store. The data is represented as a list of dicts
+
+Your mission here is to find the TOP most expensive goods. The amount we are looking for will be given as a first argument and the whole data as the second one
+
+**Input:** int and list of dicts. Each dicts has two keys "name" and "price"
+
+**Output:** the same as the second Input argument.
+
+
+### Best Solutioms
+```` python
+# Using Lambda function
+def bigger_price(limit, data):
+    return sorted(data, key=lambda x: x['price'], reverse=True)[:limit]
+
+# using lambda function and list comprehension
+def bigger_price(limit: int, data: list) -> list:
+    return [x for x in sorted(data, key=lambda x: -x['price'])][:limit]
+
+# using list function???    
+def bigger_price(limit: int, data: list) -> list:
+    return list(sorted(data, key=lambda x: x['price'], reverse=True))[:limit]
+    
+def bigger_price(limit, data):
+    return sorted(data, key=lambda x: x.get("price"), reverse=True)[:limit]
+
+# using itemgetter
+from operator import itemgetter
+def bigger_price(limit: int, data: list) -> list:
+    return sorted(data, key = itemgetter("price"), reverse=True)[0:limit]
+````
+
+### My Solution
+```` python
+def bigger_price(limit: int, data: list) -> list:
+    sorted_items = sorted(data, key=itemgetter('price'), reverse=True)        
+    return [item for count, item in enumerate(sorted_items) if count < limit]
+''''
