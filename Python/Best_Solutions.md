@@ -289,4 +289,38 @@ def bigger_price(limit: int, data: list) -> list:
 def bigger_price(limit: int, data: list) -> list:
     sorted_items = sorted(data, key=itemgetter('price'), reverse=True)        
     return [item for count, item in enumerate(sorted_items) if count < limit]
-''''
+````
+
+## Fizz Buzz
+"Fizz buzz" is a word game we will use to teach the robots about division. Let's learn computers.
+
+You should write a function that will receive a positive integer and return:
+- "Fizz Buzz" if the number is divisible by 3 and by 5;
+- "Fizz" if the number is divisible by 3;
+- "Buzz" if the number is divisible by 5; 
+- The number as a string for other cases.
+
+**Input:** A number as an integer.
+
+**Output:** The answer as a string.
+
+**Precondition:** 0 < number ≤ 1000
+
+### Best Solutioms
+```` python
+def checkio(n: int) -> str:
+    return 'Fizz'*(not n%3)+' '*(not n%15)+'Buzz'*(not n%5) or str(n)
+````
+
+### My Solution
+```` python
+def checkio(number: int) -> str:
+    if number % 3 == 0 and number % 5 == 0:
+        return "Fizz Buzz"
+    elif number % 3  == 0:
+        return "Fizz"
+    elif number % 5 == 0:
+        return "Buzz"
+    else:
+        return str(number) 
+    ````
