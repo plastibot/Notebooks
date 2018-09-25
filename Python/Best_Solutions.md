@@ -310,6 +310,22 @@ You should write a function that will receive a positive integer and return:
 ```` python
 def checkio(n: int) -> str:
     return 'Fizz'*(not n%3)+' '*(not n%15)+'Buzz'*(not n%5) or str(n)
+    
+#Or
+
+def checkio(number: int) -> str:
+    return "Fizz Buzz" if number % 15 == 0 else "Fizz" if number % 3 == 0 else "Buzz" if number % 5 == 0 else str(number)
+
+def checkio(number: int) -> str:
+    return "Fizz Buzz" if not number % 15 else "Fizz" if not number % 3 else "Buzz" if not number % 5 else str(number)
+
+def checkio(number):
+    d = {(True, True):"Fizz Buzz", (True, False):"Fizz", (False, True):"Buzz"}
+    return d.get((number%3 ==0 , number%5 == 0)) if d.get((number%3 == 0, number%5 == 0)) else str(number)
+    
+def checkio(num):
+    fizbuz = 'Fizz'*(1-num%3)+' '*(1-num%15)+'Buzz'*(1-num%5)
+    return  fizbuz + str(num)*(1-len(fizbuz))
 ````
 
 ### My Solution
