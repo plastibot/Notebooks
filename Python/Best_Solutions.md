@@ -343,4 +343,66 @@ def checkio(number: int) -> str:
         return "Buzz"
     else:
         return str(number) 
-    ````
+````
+    
+    
+## The most numbers
+Let's work with numbers.
+
+You are given an array of numbers (floats). You should find the difference between the maximum and minimum element. Your function should be able to handle an undefined amount of arguments. For an empty argument list, the function should return 0.
+
+Floating-point numbers are represented in computer hardware as base 2 (binary) fractions. So we should check the result with ±0.001 precision.
+Think about how to work with an arbitrary number of arguments.
+
+**Input:** An arbitrary number of arguments as numbers (int, float).
+
+**Output:** The difference between maximum and minimum as a number (int, float).
+
+
+### Best Solutioms
+```` python
+def checkio(*args):
+    return max(args) - min(args) if args else 0
+    
+def checkio(*t):
+    return len(t) and max(t)-min(t)
+
+# using Max function
+def checkio(*args):
+    return max([*args],default=0)-min([*args],default=0)
+
+# Or using Lambda function
+checkio = lambda *a: max([*a]) - min([*a]) if len([x for x in a]) > 0 else 0
+
+# Or using sorted
+def checkio(*args):
+    if  args:
+        s = sorted(args)
+        return s[-1] - s[0]
+    else:
+        return 0
+        
+# Or using similar to my solution but more ocmpact.
+def checkio(*args):
+    if len(args) == 0:
+        return 0
+    else:
+        return max(args) - min(args)
+        
+````
+
+### My Solution
+```` python    
+def checkio(*args):
+    if len(args) == 0:
+        return 0
+    lower = args[0]
+    higher = args[0]
+    for n in args:
+        if n > higher:
+            higher = n
+        if n < lower:
+            lower = n
+    print("{}, {}".format(higher, lower))
+    return higher - lower    
+````
