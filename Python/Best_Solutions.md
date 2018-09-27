@@ -406,3 +406,92 @@ def checkio(*args):
     print("{}, {}".format(higher, lower))
     return higher - lower    
 ````
+
+
+
+
+## Even the Last
+You are given an array of integers. You should find the sum of the elements with even indexes (0th, 2nd, 4th...) then multiply this summed number and the final element of the array together. Don't forget that the first element has an index of 0.
+
+For an empty array, the result will always be 0 (zero).
+
+**Input:** A list of integers.
+
+**Output:** The number as an integer.
+
+### Best Solutioms
+```` python
+def checkio(array):
+    return (sum([array[k] for k in range(len(array)) if k%2 == 0])) * array[-1] if len(array) != 0 else 0
+    
+def checkio(array):
+    return sum( x for x in array[0::2] ) * array[-1] if array else 0
+    
+checkio = lambda x: sum([x for i, x in enumerate(x) if not i % 2]) * x[-1] if len(x) else 0
+
+checkio = lambda x: sum(x[0: len(x): 2]) * x[-1] if x else 0
+
+def checkio(array):
+    if len(array) == 0 :
+        return 0
+    else:
+        return sum(array[::2])*(array[-1])
+        
+def checkio(array):
+    return 0 if len(array)== 0 else array[-1]*sum(array[i] for i in range(len(array)) if i%2 ==0)
+    
+def checkio(array):
+    if len(array) == 0: return 0
+    return sum(array[0::2]) * array[-1]
+````
+
+### My Solution
+```` python    
+def checkio(array):
+    if len(array) == 0:
+        return 0
+    if len(array) == 1:
+        return array[0]*array[0]
+    nsum = 0
+    for n in array[0:len(array):2]:
+        nsum = nsum + n
+    return nsum * array[-1]
+````
+
+## Secret Message
+Ever tried to send a secret message to someone without using the postal service? You could use newspapers to tell your secret. Even if someone finds your message, it's easy to brush them off and that its paranoia and a bogus conspiracy theory. One of the simplest ways to hide a secret message is to use capital letters. Let's find some of these secret messages.
+
+You are given a chunk of text. Gather all capital letters in one word in the order that they appear in the text.
+
+For example: text = "How are you? Eh, ok. Low or Lower? Ohhh.", if we collect all of the capital letters, we get the message "HELLO".
+
+**Input:** A text as a string (unicode).
+
+**Output:** The secret message as a string or an empty string.
+
+**Precondition:** 0 < len(text) ≤ 1000
+all(ch in string.printable for ch in text)
+
+
+### Best Solutioms
+```` python
+def find_message(text):
+    return ''.join(c for c in text if c.isupper())
+    
+find_message = lambda text: ''.join(filter(str.isupper, text))
+````
+
+### My Solution
+```` python 
+def find_message(text: str) -> str:
+    msg+word[0] for word in text.split() if word[0].istitle()
+
+def find_message(text: str) -> str:
+    msg = ""
+    text.split()
+    for word in text:
+        if word[0].istitle():
+            msg = msg + word[0]
+    print(msg)
+    return msg
+````
