@@ -495,3 +495,83 @@ def find_message(text: str) -> str:
     print(msg)
     return msg
 ````
+
+
+## Three Words
+
+Let's teach the Robots to distinguish words and numbers.
+
+You are given a string with words and numbers separated by whitespaces (one space). The words contains only letters. You should check if the string contains three words in succession. For example, the string "start 5 one two three 7 end" contains three words in succession.
+
+**Input:** A string with words.
+
+**Output:** The answer as a boolean.
+
+### Best Solutioms
+```` python
+def checkio(words):
+    succ = 0
+    for word in words.split():
+        succ = (succ + 1)*word.isalpha()
+        if succ == 3: return True
+    else: return False
+    
+# Or using Regular Expressions:
+def checkio(words):
+    return bool(re.compile("([a-zA-Z]+ ){2}[a-zA-Z]+").search(words))
+    
+# Even simpler RegExp
+import re
+def checkio(words):
+    return boll(re.search('\D+ \D+ \D+', words))
+    
+# Or with Lambda functions
+checkio = lambda words: True if "True, True, True" in "".join(str([x.isalpha() for x in words.split()])) else False
+````
+
+### My Solution
+```` python 
+def checkio(words: str) -> bool:
+    count = 0
+    swords = words.split()
+    for word in swords:
+        if word.isalpha():
+            count += 1
+            if count == 3:
+                return True
+        else:
+            count = 0
+    return False
+````
+
+## Index Power
+You are given an array with positive numbers and a number N. You should find the N-th power of the element in the array with the index N. If N is outside of the array, then return -1. Don't forget that the first element has the index 0.
+
+Let's look at a few examples:
+- array = [1, 2, 3, 4] and N = 2, then the result is 32 == 9;
+- array = [1, 2, 3] and N = 3, but N is outside of the array, so the result is -1.
+
+**Input:** Two arguments. An array as a list of integers and a number as a integer.
+
+**Output:** The result as an integer.
+
+### Best Solutioms
+```` python
+def index_power(arr, i):
+  if i >= len(arr):
+    return -1
+  return arr[i] ** i
+
+````
+
+### My Solution
+```` python 
+if n < len(array):
+        return array[n]**n
+    else:
+        return -1
+    #return array[n]**n if n < len(array)
+````
+
+
+
