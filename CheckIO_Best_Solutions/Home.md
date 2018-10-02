@@ -231,7 +231,7 @@ last substring is the longest one which makes it an answer.
 **Output:** Int.
 
 
-### Best Solutioms
+### Best Solutions
 ```` python
 def long_repeat(line):
     m=0
@@ -294,5 +294,110 @@ def long_repeat(line):
                 top_count = count
             count = 1
     return top_count
+````
+
+
+## All the Same
+In this mission you should check if all elements in the given list are equal.
+
+**Input:** List.
+
+**Output:** Bool.
+
+**Precondition:** all elements of the input list are hashable
+
+
+### Best Solutioms
+```` python
+# Use the fact that sets cannot hold duplicate values by converting to set and then testing if len() is more than 1
+def all_the_same(elements: List[Any]) -> bool:        
+    return False if len(set(elements)) > 1 else True
+
+# Using built-in function all(iterable, /)
+def all_the_same(elements: List[Any]) -> bool:
+    return all(x==elements[0] for x in elements)
+
+# Using built-in function any(iterable, /)
+def all_the_same(elements: List[Any]) -> bool:
+    if any(elements[i] != elements[i + 1] for i in range(len(elements) - 1)):
+        return False
+    else:
+        return True
+    
+````
+
+### My Solution
+```` python
+def all_the_same(elements: List[Any]) -> bool:
+    # your code here
+    try:
+        first_element = elements[0]
+    except:
+        return True
+    for element in elements:
+        if element != first_element:
+            return False
+    return True
+````
+
+
+## Caesar Cipher
+Your mission is to encrypt a secret message (text only, without special chars like "!", "&", "?" etc.) using Caesar cipher where each letter of input text is replaced by another that stands at a fixed distance. For example ("a b c", 3) == "d e f"
+
+**Input:** A secret message as a string (lowercase letters only and white spaces)
+
+**Output:** The same string, but encrypted
+
+**Precondition:**
+0 < len(text) < 50
+-26 < delta < 26
+
+### Best Solutons
+````python
+from string import ascii_lowercase as ascii
+def to_encrypt(text, delta):
+    return ''.join([ascii[(ascii.index(char) + delta) % len(ascii)] if char in ascii else char for char in text])
+
+def to_encrypt(text, delta):
+    alpha = [chr(x) for x in range(97,123)]
+    txt = ''
+    for char in text:
+        if char in alpha:
+            txt += alpha[(alpha.index(char)+delta)%26]
+        else:
+            txt += ' '        
+    return txt
+    
+# Or Lambda function
+to_encrypt=lambda t,d:''.join((c,chr(97+(ord(c)-97+d)%26))[ord(c)>>6]for c in t)
+
+# Or similar to my response but with some simplification on the limits.
+def to_encrypt(text, delta):
+    #replace this for solution
+    res = ''
+    for e in text:
+        if e != ' ':
+            res += chr((ord(e)+delta -97) % 26 +97)
+        else:
+            res += ' '
+    return res
+````
+
+### My Solution
+```` python
+def to_encrypt(text, delta):
+    #replace this for solution
+    crypto = ""
+    for c in text:
+        if ord(c) == 32:
+            offset = 0
+        elif (ord(c) + delta) > 122:
+            offset = delta - 26
+        elif (ord(c) + delta) < 97:
+            offset = delta + 26
+        else:
+            offset = delta
+        crypto = crypto + chr(ord(c)+offset)
+    return crypto
 ````
 
