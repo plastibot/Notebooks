@@ -203,6 +203,9 @@ all(3 ≤ len(w) and w.islower() and w.isalpha for w in words)
 
 ### Best Solutioms
 ```` python
+# using lambda
+count_words=lambda t,W:sum(w in t.lower()for w in W)
+
 def count_words(text: str, words: set) -> int:
     d = [i for i in words if text.lower().find(i) != -1]
     return len(d)
@@ -309,6 +312,15 @@ In this mission you should check if all elements in the given list are equal.
 
 ### Best Solutioms
 ```` python
+def all_the_same(elements):
+   return elements[1:] == elements[:-1]
+
+def all_the_same(elements):
+   return elements == elements[1:] + elements[:1]
+   
+# Using Lambda function
+all_the_same = lambda elements: not elements or [elements[0]] * len(elements) == elements
+
 # Use the fact that sets cannot hold duplicate values by converting to set and then testing if len() is more than 1
 def all_the_same(elements: List[Any]) -> bool:        
     return False if len(set(elements)) > 1 else True
@@ -399,5 +411,65 @@ def to_encrypt(text, delta):
             offset = delta
         crypto = crypto + chr(ord(c)+offset)
     return crypto
+````
+
+
+## Sun Angle
+Your task is to find the angle of the sun above the horizon knowing the time of the day. Input data: the sun rises in the
+East at 6:00 AM, which corresponds to the angle of 0 degrees. At 12:00 PM the sun reaches its zenith, which means that the
+angle equals 90 degrees. 6:00 PM is the time of the sunset so the angle is 180 degrees. If the input will be the time of the
+night (before 6:00 AM or after 6:00 PM), your function should return - "I don't see the sun!".
+
+**Input:** The time of the day.
+
+**Output:** The angle of the sun, rounded to 2 decimal places.
+
+**Precondition:**
+00:00 <= time <= 23:59
+
+### Best Solutons
+````python
+def sun_angle(time):    
+    t_min = (int(time[0:2])-6)*60 + int(time[3:5])    
+    if t_min < 0 or t_min > 720:
+        return 'I don\'t see the sun!' 
+    return t_min/4.0
+    
+def sun_angle(time):
+    n = ((int(time[:2])-6)*60+int(time[-2:]))*0.25
+    return n if 0 <= n <= 180 else "I don't see the sun!"
+    
+def sun_angle(time):
+    return "I don't see the sun!" if int(time[:2]) not in range(6, 18) else (((int(time[:2]) - 6) * 15) + (int(time[3:]) * 0.25))
+    
+# using lambda function
+sun_angle=lambda t:["I don't see the sun!",int(t[:2])*15+int(t[~1:])/4-90][6<=int(t[:2])+int(t[~1:])/60<=18]
+
+# using RegExp
+import re
+def sun_angle(time):
+    minute=int((re.search(r":..",time)).group()[1:]) + (int((re.match(r"..",time)).group()))*60
+    minute=(minute-360)/720*180
+    if minute >= 0 and minute <= 180:
+        return round(minute,2)
+    return "I don't see the sun!"
+
+````
+
+### My Solution
+```` python
+def sun_angle(time):
+    # 12hrs * 60 min = 720 minutes = 180deg
+    # 4minutes = 1 deg.
+    # 1 minute = 0.25 deg
+    hours = int(time.split(":")[0])
+    minutes = int(time.split(":")[1])
+    
+    if hours == 18 and minutes == 0:
+        return 180
+    if hours < 6 or hours > 17:
+        return "I don't see the sun!"
+    else:
+        return ((hours - 6) * 60 + minutes) * 0.25
 ````
 
