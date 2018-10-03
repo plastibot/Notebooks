@@ -429,6 +429,12 @@ night (before 6:00 AM or after 6:00 PM), your function should return - "I don't 
 
 ### Best Solutons
 ````python
+def sun_angle(time):
+    h, m = map(int, time.split(':'))
+    angle = 15 * h + m / 4 - 90
+    return angle if 0 <= angle <= 180 else "I don't see the sun!"
+
+
 def sun_angle(time):    
     t_min = (int(time[0:2])-6)*60 + int(time[3:5])    
     if t_min < 0 or t_min > 720:
@@ -473,3 +479,16 @@ def sun_angle(time):
         return ((hours - 6) * 60 + minutes) * 0.25
 ````
 
+### Retrospective
+- I could have used map to do hours and minutes at once. hours, minutes = map(int(time.split(":")))
+- it would have been shorter to convert time to minutes before checking to save some if statements.
+
+```` python
+def sun_angle(time):
+    hours, minutes = map(int(time.split(":")))
+    time_in_minutes = hours*60 + minutes
+    if time_in_minutes < 360 or time in minuted > 1080":
+        return "I don't see the sun!"
+    return (time_in_minutes - 360) * 0.25
+````
+    
