@@ -574,4 +574,118 @@ if n < len(array):
 ````
 
 
+## Right to Left
+One of the robots is charged with a simple task: to join a sequence of strings into one sentence to produce instructions on
+how to get around the ship. But this robot is left-handed and has a tendency to joke around and confuse its right-handed
+friends.
+
+You are given a sequence of strings. You should join these strings into chunk of text where the initial strings are separated
+by commas. As a joke on the right handed robots, you should replace all cases of the words "right" with the word "left", even
+if it's a part of another word. All strings are given in lowercase.
+
+**Input:** A sequence of strings as a tuple of strings (unicode).
+
+**Output:** The text as a string.
+
+### Best Solutioms
+```` python
+def left_join(phrases):
+    return ",".join(phrases).replace("right", "left")
+````
+
+### My Solution
+```` python 
+def left_join(phrases):
+    output = ""
+    for phrase in phrases:
+        swap = phrase.replace("right", "left")
+        output = output + swap + ","
+    return output[:-1]
+````
+
+### Retrospective
+- Use join with "," as the separator.
+````python
+return ",".join(phrases).replace("right", "left")
+````
+
+
+## Digits Multiplication
+You are given a positive integer. Your function should calculate the product of the digits excluding any zeroes.
+
+For example: The number given is 123405. The result will be 1*2*3*4*5=120 (don't forget to exclude zeroes).
+
+**Input:** A positive integer.
+
+**Output:** The product of the digits as an integer.
+
+
+### Best Solutioms
+```` python
+def checkio(number: int) -> int:
+    #create string like "1*2*3*4" and evaluate it
+    return eval("*".join(list((str(number)).replace("0", ""))))
+
+
+from operator import mul
+from functools import reduce
+def checkio(number):
+    return reduce(mul, [int(n) for n in str(number) if n!='0'])
+
+````
+
+### My Solution
+```` python 
+def checkio(number: int):
+    total = 1
+    for n in str(number):
+        if n != "0":
+            total = total * int(n)
+    return total
+
+from operator import mul
+    #return mul(int(n) for n in str(number) if n != "0")
+````
+
+### Retrospective
+- Remember to use short notation ==> total \*= int(n)
+- eval() allows to evaluate an expression. Use join() with "\*" as separator replacing "0" by ""
+
+
+## Number Base
+Do you remember the radix and Numeral systems from math class? Let's practice with it.
+
+You are given a positive number as a string along with the radix for it. Your function should convert it into decimal form.
+The radix is less than 37 and greater than 1. The task uses digits and the letters A-Z for the strings.
+
+Watch out for cases when the number cannot be converted. For example: "1A" cannot be converted with radix 9. For these cases
+your function should return -1.
+
+**Input:** Two arguments. A number as string and a radix as an integer.
+
+**Output:** The converted number as an integer.
+
+**Precondition:** 
+re.match("\A[A-Z0-9]\Z", str_number)
+0 < len(str_number) ≤ 10
+2 ≤ radix ≤ 36
+
+### Best Solutioms
+```` python
+
+````
+
+
+### My Solution
+```` python 
+def checkio(str_number: str, radix: int) -> int:
+    try:
+        return int(str_number, radix)
+    except:
+        return -1
+````
+
+### Retrospective
+- int(string, base) allows to convert any string to an integer usin the radix specified on base.
+
 
