@@ -689,3 +689,74 @@ def checkio(str_number: str, radix: int) -> int:
 - int(string, base) allows to convert any string to an integer usin the radix specified on base.
 
 
+## Absolute Sorting
+Let's try some sorting. Here is an array with the specific rules.
+
+The array (a tuple) has various numbers. You should sort it, but sort it by absolute value in ascending order. For example,
+the sequence (-20, -5, 10, 15) will be sorted like so: (-5, 10, 15, -20). Your function should return the sorted list or
+tuple.
+
+**Precondition:** The numbers in the array are unique by their absolute values.
+
+**Input:** An array of numbers , a tuple..
+
+**Output:** The list or tuple (but not a generator) sorted by absolute values in ascending order.
+
+Addition: The results of your function will be shown as a list in the tests explanation panel.
+
+
+### Best Solutioms
+```` python
+
+````
+
+### My Solution
+```` python 
+def checkio(numbers_array: tuple) -> list:
+    return sorted(numbers_array, key=abs)
+````
+
+## The Most Frequent
+
+You have a sequence of strings, and you’d like to determine the most frequently occurring string in the sequence.
+
+**Input:** a list of strings.
+
+**Output:** a string.
+
+
+### Best Solutioms
+```` python
+
+````
+
+### My Solution
+```` python 
+def most_frequent(data: list) -> str:
+    return max(data, key=data.count)
+````
+
+## Easy Unpack
+Your mission here is to create a function that gets an tuple and returns a tuple with 3 elements - first, third and second to the last for the given array
+
+**Input:** A tuple, at least 3 elements long.
+
+**Output:** A tuple.
+
+### Best Solutioms
+```` python
+
+````
+
+### My Solution
+```` python 
+def easy_unpack(elements: tuple) -> tuple:
+    return (elements[0], elements[2], elements[-2])
+````
+
+
+
+
+
+    return max(data, key=data.count)
+````
