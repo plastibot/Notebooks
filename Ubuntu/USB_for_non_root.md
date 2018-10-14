@@ -27,4 +27,12 @@ To add the group dialout to our userid user, we use the usermod command. This co
 [user@machine ~]$ sudo usermod -a -G dialout user
 ````
 
+or other blog suggests using adduser instead which is a friendlier front end to the low level tools like usermod.
+
+````bash
+[user@machine ~]$ sudo adduser user dialout
+````
+
+### Logout and login again 
+
 You will need to log out then log back in and now you should have access to the device.
