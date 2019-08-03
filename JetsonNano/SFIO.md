@@ -130,6 +130,10 @@ Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
 
 ## Reference
 
+
+
+![J41_Pinout](https://github.com/plastibot/Notebooks/JetsonNano/Jetson_Nano_J41_Pinout.png "J41 Pinout")
+
 ```` bash
 # jetson nano board definition: https://github.com/adafruit/Adafruit_Blinka/blob/master/src/adafruit_blinka/board/jetson_nano.py
 
