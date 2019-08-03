@@ -1,25 +1,27 @@
 
-## GPIO configuration for Special Function enablement (I2S, SPI, etc)
+# GPIO configuration for Special Function enablement (I2S, SPI, etc)
 
-The 40-pin header on the Jetson Nano comes configured as 'GPIO' (General purpose I/O) with the exception of 
-UART (Pins 8, 10) and I2C (Pins 3, 5) and so in order to get SPI or I2S enable the pins need to be reconfigured 
+The 40-pin header on the Jetson Nano comes configured as 'GPIO' (General purpose I/O) by default with the exception of 
+UART_2 (Pins 8, 10),  I2C_2 (Pins 3, 5) and I2C_1 (Pins 27, 28). In order to get SPI and/or I2S enable the pins need to be reconfigured 
 to what is called 'SFIO' (Special Function I/O).
 
 
-### I2S
+## I2S
 
 The I2S and AUDIO_MCLK are mapped to the following GPIOs:
 
-- AUDIO_MCLK --> GPIO BB.00
-- DAP4_SCLK --> GPIO J.07
-- DAP4_FS --> GPIO J.04
-- DAP4_DIN --> GPIO J.05
-- DAP4_DOUT --> GPIO J.06
+| Name | Tegra name.bank | J41 Header Pin |
+|------| --------------- | -------------- |
+| AUDIO_MCLK | GPIO BB.00 | (pin #7) |
+| DAP4_SCLK  | GPIO  J.07 | (pin #12) |
+| DAP4_FS    | GPIO  J.04 | (pin #35) |
+| DAP4_DIN   | GPIO  J.05 | (pin #38) |
+| DAP4_DOUT  | GPIO  J.06 | (pin #40) |
 
-You can check to see if the pins are configured for GPIO by ...
+You can check to see if the pins are configured for GPIO using the following command:
 
 ````bash
-$ $ sudo grep "Name:\|J:\|BB:" /sys/kernel/debug/tegra_gpio
+$ sudo grep "Name:\|J:\|BB:" /sys/kernel/debug/tegra_gpio
 ````
 
 a response other than 0x00 for the CNF column means the pins are GPIO.
@@ -31,11 +33,11 @@ BB: 6:3 01 00 00 00 00 00 000000
 ````
 
 The GPIO 'CNF' register indicate whether a pin is a GPIO or SFIO. If the bit is set it is a GPIO. So for example, 
-in the above the DAP4 (I2S) pins are all GPIO because the 'CNF' register has the value 0xf0 and the per the above
+in the above the DAP4 (I2S_4) pins are all GPIO because the 'CNF' register has the value 0xf0 and the per the above
 the DAP4 pins occupy the GPIO port J 4-7 which maps to bits 4-7 in the CNF register. Similarly the AUDIO_MCLK is 
 configured as a GPIO because GPIO port BB has bit 0 set to 1. 
 
-This is how it looks when the I2S port is enabled
+This is how it looks when the I2S_4 port is enabled
 
 ````bash
 Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
@@ -43,17 +45,88 @@ Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
 BB: 6:3 00 00 00 00 00 00 000000
 ````
 
-### SPI
+## SPI
 
-The SPI is mapped to the following GPIOs:
+SPI2 is mapped to the following GPIOs:
+
+| blinka pin | Name | Tegra name.bank | J41 Header Pin |
+|------| -----------| ---- | -------------- |
+| D24  | SPI_2_CS0  | GPIO  B.07 | (pin #18) |
+| D25  | SPI_2_MISO | GPIO  B.05 | (pin #22) |
+| D26  | SPI_2_MOSI | GPIO  B.04 | (pin #37) |
+| D27  | SPI_2_SCK  | GPIO  B.06 | (pin #13) |
+| D23  | SPI_2_CS1  | GPIO DD.00 | (pin #16) |
+
+SPI1 is mapped  to the following GPIOs
+
+| blinka pin | Name | Tegra name.bank | J41 Header Pin |
+|------| -----------| ---- | -------------- |
+| D9  | SPI_1_MISO | GPIO C.01 | (pin #21) |
+| D10 | SPI_1_MOSI | GPIO C.00 | (pin #19) |
+| D11 | SPI_1_SCK  | GPIO C.02 | (pin #23) |
+| D7  | SPI_1_CS1  | GPIO C.04 | (pin #26) |
+| D8  | SPI_1_CS0  | GPIO C.03 | (pin #24) |
+
+You can check to see if the pins are configured for GPIO by ...
+
+````bash
+$ sudo grep "Name:\| C:\| B:\|DD:" /sys/kernel/debug/tegra_gpio
+````
+A response like this means SPI_2 is enabled but only for CS0 and SPI_1 is disabled.
+
+````bash
+Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
+ B: 0:1 00 00 00 00 00 00 000000
+ C: 0:2 1f 00 00 00 00 00 000000 
+DD: 7:1 01 00 00 00 00 00 000000
+````
+
+In order for SPI_1 and SPI_2 to be enabled it should report:
+
+````bash
+Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
+ B: 0:1 00 00 00 00 00 00 000000
+ C: 0:2 00 00 00 00 00 00 000000 
+DD: 7:1 00 00 00 00 00 00 000000
+````
 
 
+## UART
+
+UART_2_TX and UART_2_RX are enabled by default however the RTS and CTS pins are not.
+RTS and CTS pins are mapped to:
+
+| blinka pin | Name | Tegra name.bank | J41 Header Pin |
+|------| -----------| ---- | -------------- |
+| D16 | UART_2_CTS  | GPIO G.03 | (pin #36) |
+| D17 | UART_2_RTS  | GPIO G.02 | (pin #11) |
+
+You can check to see if the pins are configured for GPIO using the following command:
+
+````bash
+$ sudo grep "Name:\|G:" /sys/kernel/debug/tegra_gpio
+````
+The response below shows that both CTS and RTS pins are GPIO
+
+````bash
+Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
+ G: 1:2 0c 00 00 04 00 00 000000
+ ````
+ 
+ in order for them to be enable as SFIO pins, the response should be:
+ 
+ ````bash
+Name:Bank:Port CNF OE OUT IN INT_STA INT_ENB INT_LVL
+ G: 1:2 00 00 00 04 00 00 000000
+ ````
 
 
+## Pins left over as GPIO after assigning special functions:
+
+15, 29, 31, 32, 33
 
 
-
-### Reference
+## Reference
 
 ```` bash
 # jetson nano board definition: https://github.com/adafruit/Adafruit_Blinka/blob/master/src/adafruit_blinka/board/jetson_nano.py
