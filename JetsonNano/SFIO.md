@@ -1,9 +1,11 @@
 
-# GPIO configuration for Special Function enablement (I2S, SPI, etc)
+# Special Function enablement (I2S, SPI, etc)
 
 The 40-pin header on the Jetson Nano comes configured as 'GPIO' (General purpose I/O) by default with the exception of 
-UART_2 (Pins 8, 10),  I2C_2 (Pins 3, 5) and I2C_1 (Pins 27, 28). In order to get SPI and/or I2S enable the pins need to be reconfigured 
-to what is called 'SFIO' (Special Function I/O).
+UART_2 (Pins 8, 10),  I2C_2 (Pins 3, 5) and I2C_1 (Pins 27, 28). In order to get SPI and/or I2S enable the pins need to be reconfigured to what is called 'SFIO' (Special Function I/O).
+
+In orde rto reconfigure the pins, follow the instructions here:
+
 
 
 ## I2S
