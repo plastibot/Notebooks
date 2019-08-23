@@ -70,3 +70,19 @@ try:
 
     val = axp.getTemperature()
     lcd.draw_string(0, 90, "Temperature:" + str(val) + filler, lcd.BLUE, lcd.BLACK)
+    
+````
+
+## LCD Backlight control
+````python
+import lcd  #for test
+from machine import I2C
+
+i2c = I2C(I2C.I2C0, freq=400000, scl=28, sda=29)
+
+lcd.init()                                                     #for test
+lcd.draw_string(100, 100, "hello maixpy", lcd.RED, lcd.BLACK)  #for test
+
+i2c.writeto_mem(0x34, 0x91,b'\x70')  # minimum
+i2c.writeto_mem(0x34, 0x91,b'\xf0')  # maximum
+````
