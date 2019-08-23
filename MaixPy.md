@@ -28,3 +28,45 @@ Read the history.txt under the general link and the readme.txt under the specifi
 ## Link to Maix documentation
 
 https://maixpy.sipeed.com/
+
+
+
+# Code Snippets for M5StickV
+
+##  UART
+
+```` python
+from machine import UART
+from fpioa_manager import fm
+fm.register(34, fm.fpioa.UART_TX, force=True
+fm.register(35, fm.fpioa.UART_RX, force=True
+uart_A = UART (UART.UART1, 115200,8,0,0,timeout=1000, read_buf_len=4096)
+uart_A.write("string"+"\r\n")
+````
+
+## Power management (AXP192)
+```` python
+import pmu
+
+axp = pmu.axp192()
+axp.enableADCs(True)
+
+try:
+  while(True):
+    val = axp.getVbatVoltage()
+    lcd.draw_string(0, 15, "Battery Voltage:" + str(val) + filler, lcd.RED, lcd.BLACK)
+
+    val = axp.getUSBVoltage()
+    lcd.draw_string(0, 30, "USB Voltage:" + str(val) + filler, lcd.WHITE, lcd.BLACK)
+
+    val = axp.getUSBInputCurrent()
+    lcd.draw_string(0, 45, "USB InputCurrent:" + str(val) + filler, lcd.RED, lcd.BLACK)
+
+    val = axp.getBatteryDischargeCurrent()
+    lcd.draw_string(0, 60, "DischargeCurrent:" + str(val) + filler, lcd.GREEN, lcd.BLACK)
+
+    val = axp.getBatteryInstantWatts()
+    lcd.draw_string(0, 75, "Instant Watts:" + str(val) + filler, lcd.BLUE, lcd.BLACK)
+
+    val = axp.getTemperature()
+    lcd.draw_string(0, 90, "Temperature:" + str(val) + filler, lcd.BLUE, lcd.BLACK)
