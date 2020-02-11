@@ -30,7 +30,7 @@ conda search <package_name>
 
 
 
-#### Python Environment Workflow
+### Python Environment Workflow
 
 - Create a project folder in the ~/repos/ directory on my computer.
 - Create an environment.yml file in the directory. Typically the environment name will be the same as the folder name. At minimum, it will specify the version of Python I want to use; it will often include anaconda as a dependency.5
@@ -40,5 +40,17 @@ conda search <package_name>
 - Run $ git init to make the folder a Git repository. I then run $ git add environment.yml && git commit -m 'initial commit' to add the YAML file to the repository.
 - If I want to push the repository to Github, I use $ git create using Github’s hub commands. I then push the master branch with $ git push -u origin master.
 - As I add dependencies to my project, I try to be sure I add them to my environment.yml file.
+
+### Remove Conda as Default Python
+
+After installing Anaconda or Miniconda, programs that run python switch from invoking the system Python to invoking the Python in the root conda environment. If these programs rely on the system Python to have certain configurations or dependencies that are not in the root conda environment Python, the programs may crash. For example, some users of the Cinnamon desktop environment on Linux Mint have reported these crashes.
+
+#### Solution
+Edit your .bash_profile and .bashrc files so that the conda binary directory, such as ~/miniconda3/bin, is no longer added to the PATH environment variable. You can still run conda activate and conda deactivate by using their full path names, such as ~/miniconda3/bin/conda.
+
+You may also create a folder with symbolic links to conda activate and conda deactivate and then edit your .bash_profile or .bashrc file to add this folder to your PATH. If you do this, running python will invoke the system Python, but running conda commands, conda activate MyEnv, conda activate root, or conda deactivate will work normally.
+
+After running conda activate to activate any environment, including after running conda activate root, running python will invoke the Python in the active conda environment.
+
 
 
