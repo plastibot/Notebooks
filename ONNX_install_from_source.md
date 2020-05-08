@@ -105,4 +105,33 @@ Type "help", "copyright", "credits" or "license" for more information.
 3
 ````
 
+### 4. Install ONNX-Tensorflow
 
+````bash
+$cd ..
+$git clone https://github.com/onnx/onnx-tensorflow.git
+$cd onnx-tensorflow
+$pip install -e .
+````
+
+verification and test
+
+````bash
+$python -c "import onnx-tf"
+$python test/backend/test_model.py 
+$python util/get_version.py
+````
+
+this last command should return something like this
+
+````bash
+Python version:
+3.6.9 (default, May  8 2020, 13:10:40) 
+[GCC 4.2.1 Compatible Apple LLVM 11.0.0 (clang-1100.0.33.12)]
+ONNX version:
+1.7.0
+ONNX-TF version:
+1.5.0
+Tensorflow version:
+2.2.0
+````
