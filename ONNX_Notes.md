@@ -1,6 +1,6 @@
 
 
-## Steps to install ONNX on MacOS
+## Steps to install ONNX on MacOS using Conda
 
 ### First create a virtual environment
 
