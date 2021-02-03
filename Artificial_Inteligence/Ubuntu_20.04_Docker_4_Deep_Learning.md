@@ -126,7 +126,11 @@ This should result in a console output shown below:
 +-----------------------------------------------------------------------------+
 ```
 
-### c) Download TensorFlow docker image
+### c) Access Docker without the need of sudo
+
+
+
+### d) Download TensorFlow docker image
 
 The official TensorFlow Docker images are located in the tensorflow/tensorflow Docker Hub repository. https://hub.docker.com/r/tensorflow/tensorflow/
 
@@ -156,7 +160,7 @@ docker pull tensorflow/tensorflow:devel-gpu           # nightly dev release w/ G
 docker pull tensorflow/tensorflow:latest-gpu-jupyter  # latest release w/ GPU support and Jupyter
 ```
 
-### d) Start TensorFlow Docker container
+### e) Start TensorFlow Docker container
 
 ```bash
 docker run --gpus all [-it] [--rm] [-p hostPort:containerPort] [-v hostSource:containerDestination] tensorflow/tensorflow[:tag] [command]
@@ -168,5 +172,51 @@ for example to start a Jupyter Notebook server with GPU support using TensorFlow
 docker run --gpus all -it -p 8888:8888 -v /home/freeman/DeepLizard:/tf/ tensorflow/tensorflow:2.2.2-gpu-py3-jupyter
 ```
 
+## 5. Update Dependencies for your environment
 
+The code examples I plan on running on the container environment requires SciKit-Learn 0.22.2.post1. The docker image does not include scikit-learn. In order to install the dependency you need to acces your running container as follows. You can ind more information about how to work with containers here: https://stephen-odaibo.medium.com/docker-containers-python-virtual-environments-virtual-machines-d00aa9b8475 and https://analyticsindiamag.com/docker-solution-for-tensorflow-2-0-how-to-get-started/
+
+### a) Find the name of your running container
+
+```bash
+$docker ps -a
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED             STATUS                  PORTS                    NAMES
+e31432eed782   tensorflow/tensorflow:2.3.1-gpu-jupyter       "bash -c 'source /et…"   About an hour ago   Up About an hour        0.0.0.0:8888->8888/tcp   funny_robinson
+```
+### b) Enter the container using an interactive shell
+
+```bash
+$docker exec -it funny_robinson bash
+```
+
+### c) Use PIP to install dependencies
+
+```bash
+$pip install scikit-learn==0.22.2.post1
+```
+
+### d) Exit the container interactive shell
+
+```bash
+$exit
+```
+
+### d) Commit changes and save the new container instance
+
+Use the following command to commit the changes made to the container and save it as a new image/version.
+
+```bash
+docker commit container_id new_name_for_image
+```
+
+for example
+
+```bash
+docker commit funny_robinson DeepLizard_Keras_v1.03
+```
+
+### e) Run your new container
+
+```bash
+docker run --gpus all -it -p 8888:8888 -v /home/freeman/DeepLizard:/tf/ deeplizard_keras_v103
 
