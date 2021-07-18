@@ -128,7 +128,10 @@ This should result in a console output shown below:
 
 ### c) Access Docker without the need of sudo
 
-
+``` bash
+$ sudo usermod -a -G docker $USER
+$ sudo reboot
+```
 
 ### d) Download TensorFlow docker image
 
