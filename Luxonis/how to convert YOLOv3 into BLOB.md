@@ -1,4 +1,18 @@
+
+
+
+
+
+
+
 ## 1. Convert YOLO model to Tensorflow frozen model
+
+### Make a directory called "model" and put your model .cfg and .weights files in there. Rename them to "model" 
+
+```bash
+mkdir model
+cd model
+
 
 ### Cloning repo that helps with the conversion
 ``` bash
@@ -37,6 +51,8 @@ source ./venv/bin/activate
 pip install --upgrade pip
 pip install tensorflow=1.11.0
 ```
+
+
 
 ### converting the model
 
@@ -92,4 +108,11 @@ source /opt/intel/openvino_2021/bin/setupvars.sh
 ```
 
 Save and close the file by pressing Ctrl+X then Y and enter 
+
+### convert IR into blob
+
+```bash
+export MYRIAD_COMPILE=$(find /opt/intel/ -iname myriad_compile)
+$MYRIAD_COMPILE -m ~/model/frozen_darknet_yolov3_model.xml -ip U8 -VPU_NUMBER_OF_SHAVES 5 -VPU_NUMBER_OF_CMX_SLICES 5 -o ~/model/
+```
 
