@@ -122,7 +122,7 @@ classes, coords, num, and masks are attributes that you should copy from the con
 ```bash
 cp 
 python3 mo_tf.py --input_model ~/tensorflow-yolo-v3/frozen_darknet_yolov3_model.pb --data_type FP16 --transformations_config ~/model/yolo_v3.json --batch 1 --outputexport MYRIAD_COMPILE=$(find /opt/intel/ -iname myriad_compile)_dir ~/model/
-
+```
 
 
 
