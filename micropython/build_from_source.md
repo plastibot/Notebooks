@@ -106,16 +106,32 @@ After the successful build the build directory will contain:
 2. partition_table/partition-table.bin 
 3. micropython.bin
 
-These can then be flashed onto your board.
+These can then be flashed onto your board individually or you can unify them into a single firmware.bin with the following comand:
+
+```shell
+../../../micropython-modules/microlite/assemble-unified-image-esp.sh ../../../micropython/ports/esp32
+
+bootloader  @0x001000    21584  (    7088 remaining)
+partitions  @0x008000     3072  (    1024 remaining)
+application @0x010000  2081232  (  540208 remaining)
+total                  2146768
+```
+
+The resulting firmware.bin can be found on folder boards/esp32/MICROLITE/Build
+
+To burn the firmware to the ESP32 using esptool first erase the flash
+
+```shell
+esptool.py --port /dev/ttyUSB0 erase_flash
+```
+
+then program
+
+```shell
+esptool.py --chip esp32 -port /dev/ttyUSB0 write_flash -z 0x1000 firmware.bin
+```
 
 
-# Github Actions for reference
 
-The documentation here is mostly up to date but the latest is what is currently working for the github actions.
 
-1. [ESP32 Builds](.github/workflows/build_esp32.yml)
-2. [ESP32 S3 Builds](.github/workflows/build_esp32s3.yml)
-2. [RP2 Build](.github/workflows/build_rp2.yml)
-2. [STM32 Builds](.github/workflows/build_stm32.yml)
-2. [Unix Build](.github/workflows/build_unix.yml)
 
