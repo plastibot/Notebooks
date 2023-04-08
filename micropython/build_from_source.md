@@ -70,12 +70,15 @@ rm -rf ./micropython-modules/microlite/tflm
 cd ./tensorflow
 
 ../micropython-modules/microlite/prepare-tflm-esp.sh
+
+cd ..
 ```
 
 ### Build mpy-cross before building the board
 
 ```shell
-source ./micropython/tools/ci.sh && ci_esp32_idf44_setu
+#source ./micropython/tools/ci.sh && ci_esp32_idf44_setup
+source ./micropython/tools/ci.sh && ci_esp32_setup_helper v4.3.1
 source ./esp-idf/export.sh
 cd ./micropython
 echo "make -C mpy-cross V=1 clean all"
